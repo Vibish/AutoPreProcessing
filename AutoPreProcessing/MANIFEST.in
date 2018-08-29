@@ -1,0 +1,2 @@
+include AutoPreProcessing/HTMLTemplate/*.*
+include AutoPreProcessing/data/*
