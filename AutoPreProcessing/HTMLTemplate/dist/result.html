@@ -36,21 +36,25 @@
          	var IndependentVariable = document.getElementById('Independent').value
          	var DependentVariable = document.getElementById('Dependent').value
          	  
-         	document.getElementById("SexLifeExpectency").style.display = 'none'
+         	document.getElementById("SexRace").style.display = 'none'
          	  
-         	document.getElementById("Race2LifeExpectency").style.display = 'none'
+         	document.getElementById("RaceSex").style.display = 'none'
+         	  
+         	document.getElementById("LifeExpectencyRace").style.display = 'none'
          	  
          	document.getElementById("RaceLifeExpectency").style.display = 'none'
+         	  
+         	document.getElementById("Race2Race").style.display = 'none'
+         	  
+         	document.getElementById("RaceRace2").style.display = 'none'
          	  
          	document.getElementById("LifeExpectencySex").style.display = 'none'
          	  
          	document.getElementById("Race2Sex").style.display = 'none'
          	  
-         	document.getElementById("RaceSex").style.display = 'none'
+         	document.getElementById("SexLifeExpectency").style.display = 'none'
          	  
-         	document.getElementById("RaceRace2").style.display = 'none'
-         	  
-         	document.getElementById("Race2Race").style.display = 'none'
+         	document.getElementById("Race2LifeExpectency").style.display = 'none'
          	
          	document.getElementById(IndependentVariable+DependentVariable).style.display = 'block'
          };
@@ -60,21 +64,21 @@
          	var IndependentVariable = document.getElementById('Categorical').value
          	var DependentVariable = document.getElementById('Continuous').value
          	  
-         	document.getElementById("LifeExpectencyAge-adjusted_Death_RateAnova").style.display = 'none'
-         	  
-         	document.getElementById("LifeExpectencyAverage_Life_Expectancy__Years_Anova").style.display = 'none'
-         	  
-         	document.getElementById("SexAge-adjusted_Death_RateAnova").style.display = 'none'
-         	  
-         	document.getElementById("SexAverage_Life_Expectancy__Years_Anova").style.display = 'none'
-         	  
-         	document.getElementById("Race2Age-adjusted_Death_RateAnova").style.display = 'none'
-         	  
-         	document.getElementById("Race2Average_Life_Expectancy__Years_Anova").style.display = 'none'
+         	document.getElementById("RaceAverage_Life_Expectancy__Years_Anova").style.display = 'none'
          	  
          	document.getElementById("RaceAge-adjusted_Death_RateAnova").style.display = 'none'
          	  
-         	document.getElementById("RaceAverage_Life_Expectancy__Years_Anova").style.display = 'none'
+         	document.getElementById("SexAverage_Life_Expectancy__Years_Anova").style.display = 'none'
+         	  
+         	document.getElementById("SexAge-adjusted_Death_RateAnova").style.display = 'none'
+         	  
+         	document.getElementById("LifeExpectencyAverage_Life_Expectancy__Years_Anova").style.display = 'none'
+         	  
+         	document.getElementById("LifeExpectencyAge-adjusted_Death_RateAnova").style.display = 'none'
+         	  
+         	document.getElementById("Race2Average_Life_Expectancy__Years_Anova").style.display = 'none'
+         	  
+         	document.getElementById("Race2Age-adjusted_Death_RateAnova").style.display = 'none'
          	
          	document.getElementById(IndependentVariable+DependentVariable+"Anova").style.display = 'block'
          };
@@ -103,9 +107,9 @@
          				type: 'pie', // default type of chart
          				colors: {
          
-         'Categorical': '#6E6702',
+         'Categorical': '#D09683',
          
-         'Continuous': '#3F6C45',
+         'Continuous': '#92AAC7',
          
          'Others': '#FA6E59',
          
@@ -136,36 +140,123 @@
          });
       </script>
 	  
+	  <script>
+         require(['c3', 'jquery'], function(c3, $) {
+         	$(document).ready(function(){
+         		var chart = c3.generate({
+         			bindto: '#FeatureTypes_2', // id of chart wrapper
+         			data: {
+         				columns: [
+         				    // each columns data
+         
+         ['Categorical' , 4],
+         
+         ['Continuous' , 2],
+         
+         ['Others' , 2],
+         
+         				],
+         				type: 'pie', // default type of chart
+         				colors: {
+         
+         'Categorical': '#D09683',
+         
+         'Continuous': '#92AAC7',
+         
+         'Others': '#FA6E59',
+         
+         					
+         				},
+         				names: {
+         				    // name of each series
+         
+         'Categorical': 'Categorical',
+         
+         'Continuous': 'Continuous',
+         
+         'Others': 'Others',
+         
+         				}
+         			},
+         			axis: {
+         			},
+         			legend: {
+                         show: true, //hide legend
+         			},
+         			padding: {
+         				bottom: 0,
+         				top: 0
+         			},
+         		});
+         	});
+         });
+      </script>
+	  
+	  <!-- Bar Chart for Null Percentage -->
+	  <script>
+         require(['c3', 'jquery'], function(c3, $) {
+         	$(document).ready(function(){
+         		var chart = c3.generate({
+         			bindto: '#NullPercentage', // id of chart wrapper
+         			data: {
+						x : 'x',
+						columns: [
+							['x','Unnamed:_0','Year','Race','Sex','Average_Life_Expectancy__Years_','Age-adjusted_Death_Rate','LifeExpectency','Race2'],
+							['Null Percentage',0.0,0.0,0.0,2.0,3.0,22.0,0.0,2.0],							
+						],
+						type: 'bar'
+					},
+					axis: {
+						x: {
+							type: 'category',
+							tick: {
+								rotate: 75,
+								multiline: false
+							},
+							height: 130
+						}
+					}
+         		});
+         	});
+         });
+      </script>
+	  
       
       <script>
          require(['c3', 'jquery'], function(c3, $) {
          $(document).ready(function(){
          var chart = c3.generate({
-         bindto: '#LifeExpectencyPieChart', // id of chart wrapper
+         bindto: '#RacePieChart', // id of chart wrapper
          data: {
          columns: [
          // each columns data
          
-         ['High' , 473],
+         ['All Races' , 230],
          
-         ['Low' , 217],
+         ['Black' , 230],
+         
+         ['White' , 230],
          
          ],
          type: 'pie', // default type of chart
          colors: {
          
-         'High': '#5D535E',
+         'All Races': '#D09683',
          
-         'Low': '#805A3B',
+         'Black': '#A1BE95',
+         
+         'White': '#7F152E',
          
          
          },
          names: {
          // name of each series
          
-         'High': 'High',
+         'All Races': 'All Races',
          
-         'Low': 'Low',
+         'Black': 'Black',
+         
+         'White': 'White',
          
          }
          },
@@ -195,7 +286,7 @@
          columns: [
          // each columns data
          
-         ['Female' , 345],
+         ['Female' , 333],
          
          ['Male' , 345],
          
@@ -203,9 +294,9 @@
          type: 'pie', // default type of chart
          colors: {
          
-         'Female': '#DFE166',
+         'Female': '#92AAC7',
          
-         'Male': '#FA6E59',
+         'Male': '#7F152E',
          
          
          },
@@ -239,37 +330,31 @@
          require(['c3', 'jquery'], function(c3, $) {
          $(document).ready(function(){
          var chart = c3.generate({
-         bindto: '#Race2PieChart', // id of chart wrapper
+         bindto: '#LifeExpectencyPieChart', // id of chart wrapper
          data: {
          columns: [
          // each columns data
          
-         ['All Races' , 230],
+         ['High' , 473],
          
-         ['Black' , 230],
-         
-         ['White' , 230],
+         ['Low' , 217],
          
          ],
          type: 'pie', // default type of chart
          colors: {
          
-         'All Races': '#50312F',
+         'High': '#9A9EAB',
          
-         'Black': '#E4EA8C',
-         
-         'White': '#F69454',
+         'Low': '#F69454',
          
          
          },
          names: {
          // name of each series
          
-         'All Races': 'All Races',
+         'High': 'High',
          
-         'Black': 'Black',
-         
-         'White': 'White',
+         'Low': 'Low',
          
          }
          },
@@ -294,12 +379,12 @@
          require(['c3', 'jquery'], function(c3, $) {
          $(document).ready(function(){
          var chart = c3.generate({
-         bindto: '#RacePieChart', // id of chart wrapper
+         bindto: '#Race2PieChart', // id of chart wrapper
          data: {
          columns: [
          // each columns data
          
-         ['All Races' , 230],
+         ['All Races' , 217],
          
          ['Black' , 230],
          
@@ -309,11 +394,11 @@
          type: 'pie', // default type of chart
          colors: {
          
-         'All Races': '#D9B44A',
+         'All Races': '#9A9EAB',
          
-         'Black': '#4F6457',
+         'Black': '#4B7447',
          
-         'White': '#A1BE95',
+         'White': '#92AAC7',
          
          
          },
@@ -352,68 +437,20 @@
 		require(['c3', 'jquery'], function(c3, $) {
 		$(document).ready(function(){
 			var chart = c3.generate({
-				bindto: '#Age-adjusted_Death_RateHistChart',
-				data: {
-					columns: [
-						// each columns data
-						['data1', 0.00045,0.00076,0.00061,0.00038,0.00049,0.00067,0.00079,0.00054,0.00043,0.00047,0.00056,0.00045,0.00025,0.00027,0.00065,0.00101,0.0004,0.00043,0.00036,0.00043,0.0004,0.00054,0.00049,0.00043,0.00029,0.00029,0.00034,0.00025,0.00025,0.00018,0.00018,0.00025,0.00011,0.00018,9e-05,2e-05,0.00016,0.00011,0.00011,0.00011,4e-05,4e-05,4e-05,4e-05,0.0,9e-05,0.0,2e-05,0.0,2e-05],
-						['data2', 0.0002,0.00022,0.00025,0.00029,0.00032,0.00035,0.00039,0.00042,0.00045,0.00048,0.00051,0.00053,0.00055,0.00057,0.00058,0.00058,0.00058,0.00058,0.00057,0.00056,0.00054,0.00051,0.00049,0.00046,0.00043,0.0004,0.00036,0.00033,0.0003,0.00026,0.00023,0.0002,0.00018,0.00015,0.00013,0.00011,9e-05,8e-05,6e-05,5e-05,4e-05,3e-05,3e-05,2e-05,2e-05,1e-05,1e-05,1e-05,1e-05,0.0,0.0]
-					],
-					type: 'bar', // default type of chart
-					types: {
-						'data2': "line"
-					},
-					colors: {
-						'data1': "#4B7447",
-						'data2': "#6E6702"
-					},
-					names: {
-						// name of each series
-						'data1': 'Pr(x)',
-						'data2': 'PDF'
-					}
-				},
-				axis: {
-					x: {
-						type: 'category',
-						// name of each category
-						categories: [616.7,681.2800000000001,745.86,810.44,875.02,939.6,1004.1800000000001,1068.76,1133.3400000000001,1197.92,1262.5,1327.08,1391.66,1456.24,1520.8200000000002,1585.4,1649.98,1714.56,1779.14,1843.72,1908.3,1972.88,2037.46,2102.04,2166.62,2231.2,2295.7799999999997,2360.3599999999997,2424.94,2489.52,2554.1,2618.6800000000003,2683.26,2747.84,2812.42,2877.0,2941.58,3006.16,3070.74,3135.3199999999997,3199.8999999999996,3264.4799999999996,3329.0600000000004,3393.6400000000003,3458.2200000000003,3522.8,3587.38,3651.96,3716.54,3781.12,3845.7]
-					},
-				},
-				bar: {
-					width: 	6
-				},
-				legend: {
-					  show: false, //hide legend
-				},
-				padding: {
-					bottom: 0,
-					top: 0
-				},
-			});
-		});
-	  });
-	  </script>
-	  
-	  
-      <script>
-		require(['c3', 'jquery'], function(c3, $) {
-		$(document).ready(function(){
-			var chart = c3.generate({
 				bindto: '#Average_Life_Expectancy__Years_HistChart',
 				data: {
 					columns: [
 						// each columns data
-						['data1', 0.00416,0.00139,0.00416,0.00693,0.00831,0.00416,0.00416,0.00831,0.00416,0.0,0.00554,0.00277,0.00139,0.00416,0.00277,0.01108,0.00831,0.01663,0.01247,0.01663,0.0194,0.02217,0.01247,0.01524,0.01663,0.02494,0.0097,0.02078,0.01801,0.01801,0.03741,0.02633,0.02494,0.03187,0.03325,0.03741,0.05404,0.02355,0.02078,0.02355,0.03187,0.0388,0.05126,0.04572,0.0291,0.02494,0.02494,0.03187,0.03325,0.02633],
-						['data2', 0.00043,0.00056,0.00072,0.00091,0.00115,0.00144,0.00179,0.00221,0.0027,0.00328,0.00395,0.00472,0.0056,0.00659,0.00769,0.00892,0.01025,0.01169,0.01324,0.01487,0.01658,0.01833,0.02012,0.02191,0.02368,0.02539,0.02701,0.02852,0.02988,0.03106,0.03203,0.03279,0.0333,0.03355,0.03355,0.03329,0.03278,0.03202,0.03104,0.02986,0.0285,0.027,0.02537,0.02366,0.02189,0.0201,0.01832,0.01656,0.01485,0.01322,0.01168]
+						['data1', 0.00429,0.00143,0.00429,0.00715,0.00857,0.00429,0.00429,0.00857,0.00429,0.0,0.00572,0.00286,0.00143,0.00429,0.00286,0.01143,0.00857,0.01715,0.01286,0.01715,0.02001,0.02286,0.01286,0.01572,0.01715,0.02572,0.01,0.02144,0.01858,0.01858,0.03858,0.02715,0.02572,0.03287,0.0343,0.03858,0.05573,0.02429,0.02144,0.02429,0.03287,0.04001,0.05287,0.04716,0.03001,0.02572,0.02572,0.01858,0.02001,0.02572],
+						['data2', 0.00045,0.00058,0.00075,0.00095,0.0012,0.00151,0.00187,0.00231,0.00283,0.00344,0.00414,0.00495,0.00588,0.00691,0.00807,0.00935,0.01074,0.01225,0.01386,0.01555,0.01731,0.01912,0.02095,0.02277,0.02456,0.02628,0.0279,0.02939,0.0307,0.03183,0.03273,0.0334,0.03381,0.03395,0.03383,0.03344,0.0328,0.03191,0.0308,0.0295,0.02802,0.02641,0.0247,0.02292,0.02109,0.01926,0.01745,0.01568,0.01399,0.01237,0.01086]
 					],
 					type: 'bar', // default type of chart
 					types: {
 						'data2': "line"
 					},
 					colors: {
-						'data1': "#DB9501",
-						'data2': "#F69454"
+						'data1': "#8EBA43",
+						'data2': "#DB9501"
 					},
 					names: {
 						// name of each series
@@ -444,6 +481,54 @@
 	  </script>
 	  
 	  
+      <script>
+		require(['c3', 'jquery'], function(c3, $) {
+		$(document).ready(function(){
+			var chart = c3.generate({
+				bindto: '#Age-adjusted_Death_RateHistChart',
+				data: {
+					columns: [
+						// each columns data
+						['data1', 0.00058,0.00078,0.00046,0.00032,0.00043,0.00037,0.00075,0.0006,0.00043,0.00049,0.00043,0.0004,0.00023,0.00032,0.00072,0.00095,0.00043,0.00052,0.0004,0.00055,0.00049,0.00066,0.00058,0.00049,0.00032,0.00032,0.00043,0.00029,0.00026,0.0002,0.0002,0.00023,6e-05,9e-05,3e-05,0.0,9e-05,0.00014,0.00012,9e-05,0.0,0.0,3e-05,6e-05,0.0,0.00012,0.0,3e-05,0.0,3e-05],
+						['data2', 0.00018,0.00021,0.00024,0.00027,0.00031,0.00034,0.00038,0.00042,0.00045,0.00048,0.00051,0.00054,0.00056,0.00058,0.0006,0.0006,0.00061,0.0006,0.00059,0.00058,0.00056,0.00053,0.00051,0.00047,0.00044,0.00041,0.00037,0.00033,0.0003,0.00026,0.00023,0.0002,0.00017,0.00015,0.00012,0.0001,9e-05,7e-05,6e-05,5e-05,4e-05,3e-05,2e-05,2e-05,1e-05,1e-05,1e-05,1e-05,0.0,0.0,0.0]
+					],
+					type: 'bar', // default type of chart
+					types: {
+						'data2': "line"
+					},
+					colors: {
+						'data1': "#DFE166",
+						'data2': "#B38867"
+					},
+					names: {
+						// name of each series
+						'data1': 'Pr(x)',
+						'data2': 'PDF'
+					}
+				},
+				axis: {
+					x: {
+						type: 'category',
+						// name of each category
+						categories: [616.7,681.2800000000001,745.86,810.44,875.02,939.6,1004.1800000000001,1068.76,1133.3400000000001,1197.92,1262.5,1327.08,1391.66,1456.24,1520.8200000000002,1585.4,1649.98,1714.56,1779.14,1843.72,1908.3,1972.88,2037.46,2102.04,2166.62,2231.2,2295.7799999999997,2360.3599999999997,2424.94,2489.52,2554.1,2618.6800000000003,2683.26,2747.84,2812.42,2877.0,2941.58,3006.16,3070.74,3135.3199999999997,3199.8999999999996,3264.4799999999996,3329.0600000000004,3393.6400000000003,3458.2200000000003,3522.8,3587.38,3651.96,3716.54,3781.12,3845.7]
+					},
+				},
+				bar: {
+					width: 	6
+				},
+				legend: {
+					  show: false, //hide legend
+				},
+				padding: {
+					bottom: 0,
+					top: 0
+				},
+			});
+		});
+	  });
+	  </script>
+	  
+	  
    </head>
    <body class="">
       <div class="page">
@@ -452,7 +537,7 @@
                <div class="container">
                   <div class="d-flex">
                      <img src="./assets/image/binoculars.png" class="header-brand-img" alt="">
-                     <h1> Exploratory Data Analysis </h1>
+                     <h1> Smart Stats </h1>
                      <div class="d-flex order-lg-2 ml-auto">
                         <div class="nav-item d-none d-md-flex">
                         </div>
@@ -482,7 +567,7 @@
                <div class="container">
                   <div class="page-header">
                      <h1 class="page-title">
-                        EDA Title
+                        Testing the Package
                      </h1>
                   </div>
                   <div class="row row-cards">
@@ -577,9 +662,9 @@
                               <div class="text-left">
                                  <ul class="list-unstyled leading-loose">
                                     
-                                    <li><i class="fe fe-droplet text-success mr-2" aria-hidden="true"></i>Age-adjusted_Death_Rate</li>
-                                    
                                     <li><i class="fe fe-droplet text-success mr-2" aria-hidden="true"></i>Average_Life_Expectancy__Years_</li>
+                                    
+                                    <li><i class="fe fe-droplet text-success mr-2" aria-hidden="true"></i>Age-adjusted_Death_Rate</li>
                                     
                                  </ul>
                               </div>
@@ -593,13 +678,13 @@
                               <div class="text-left">
                                  <ul class="list-unstyled leading-loose">
                                     
-                                    <li><i class="fe fe-droplet text-primary mr-2" aria-hidden="true"></i>LifeExpectency</li>
+                                    <li><i class="fe fe-droplet text-primary mr-2" aria-hidden="true"></i>Race</li>
                                     
                                     <li><i class="fe fe-droplet text-primary mr-2" aria-hidden="true"></i>Sex</li>
                                     
-                                    <li><i class="fe fe-droplet text-primary mr-2" aria-hidden="true"></i>Race2</li>
+                                    <li><i class="fe fe-droplet text-primary mr-2" aria-hidden="true"></i>LifeExpectency</li>
                                     
-                                    <li><i class="fe fe-droplet text-primary mr-2" aria-hidden="true"></i>Race</li>
+                                    <li><i class="fe fe-droplet text-primary mr-2" aria-hidden="true"></i>Race2</li>
                                     
                                  </ul>
                               </div>
@@ -637,68 +722,6 @@
 							<div class="col-sm-4">
 								<div class="card">
                                     <div class="card-header text-center">
-                                       <h4> Age-adjusted_Death_Rate </h4>
-                                    </div>
-                                    <div class="card-body">
-                                       <table class="table table-striped">
-											<thead>
-												<tr>
-												  <th>Statistic</th>
-												  <th>Value</th>
-												</tr>
-											  </thead>
-											  <tbody>
-												<tr>
-												 <td style="width: 146.4px;">Count</td>
-												 <td style="width: 147.2px;">690.0</td>
-												</tr>
-												<tr>
-												 <td style="width: 146.4px;">Mean</td>
-												 <td style="width: 147.2px;">1627.39</td>
-												</tr>
-												<tr>
-												 <td style="width: 146.4px;">Median</td>
-												 <td style="width: 147.2px;">1583.45</td>
-												</tr>
-												<tr>
-												 <td style="width: 146.4px;">Std Dev</td>
-												 <td style="width: 147.2px;">683.56</td>
-												</tr><tr>
-												 <td style="width: 146.4px;">Min</td>
-												 <td style="width: 147.2px;">616.7</td>
-												</tr><tr>
-												 <td style="width: 146.4px;">25%</td>
-												 <td style="width: 147.2px;">1052.65</td>
-												</tr><tr>
-												 <td style="width: 146.4px;">50%</td>
-												 <td style="width: 147.2px;">1583.45</td>
-												</tr><tr>
-												 <td style="width: 146.4px;">75%</td>
-												 <td style="width: 147.2px;">2073.48</td>
-												</tr><tr>
-												 <td style="width: 146.4px;">Max</td>
-												 <td style="width: 147.2px;">3845.7</td>
-												</tr><tr>
-												 <td style="width: 146.4px;">Variance</td>
-												 <td style="width: 147.2px;">466578.2581</td>
-												</tr>
-											  </tbody>
-									   </table>
-									   <div class = "row">
-									   <img src="./output/Age-adjusted_Death_Rate.png" class="Age-adjusted_Death_Rate" alt="" height="100%" width="100%"> </img>
-									   </div>
-									   <div class = "row">
-										   <div class="embed-wrapper">
-											  <div id="Age-adjusted_Death_RateHistChart" ></div>
-										   </div>
-									   </div>
-									</div>
-								</div>
-							</div>
-						   
-							<div class="col-sm-4">
-								<div class="card">
-                                    <div class="card-header text-center">
                                        <h4> Average_Life_Expectancy__Years_ </h4>
                                     </div>
                                     <div class="card-body">
@@ -712,37 +735,37 @@
 											  <tbody>
 												<tr>
 												 <td style="width: 146.4px;">Count</td>
-												 <td style="width: 147.2px;">690.0</td>
+												 <td style="width: 147.2px;">669.0</td>
 												</tr>
 												<tr>
 												 <td style="width: 146.4px;">Mean</td>
-												 <td style="width: 147.2px;">64.14</td>
+												 <td style="width: 147.2px;">63.66</td>
 												</tr>
 												<tr>
 												 <td style="width: 146.4px;">Median</td>
-												 <td style="width: 147.2px;">66.5</td>
+												 <td style="width: 147.2px;">65.9</td>
 												</tr>
 												<tr>
 												 <td style="width: 146.4px;">Std Dev</td>
-												 <td style="width: 147.2px;">11.89</td>
+												 <td style="width: 147.2px;">11.76</td>
 												</tr><tr>
 												 <td style="width: 146.4px;">Min</td>
 												 <td style="width: 147.2px;">29.1</td>
 												</tr><tr>
 												 <td style="width: 146.4px;">25%</td>
-												 <td style="width: 147.2px;">56.65</td>
+												 <td style="width: 147.2px;">56.0</td>
 												</tr><tr>
 												 <td style="width: 146.4px;">50%</td>
-												 <td style="width: 147.2px;">66.5</td>
+												 <td style="width: 147.2px;">65.9</td>
 												</tr><tr>
 												 <td style="width: 146.4px;">75%</td>
-												 <td style="width: 147.2px;">73.6</td>
+												 <td style="width: 147.2px;">73.2</td>
 												</tr><tr>
 												 <td style="width: 146.4px;">Max</td>
 												 <td style="width: 147.2px;">81.4</td>
 												</tr><tr>
 												 <td style="width: 146.4px;">Variance</td>
-												 <td style="width: 147.2px;">141.0869</td>
+												 <td style="width: 147.2px;">138.0445</td>
 												</tr>
 											  </tbody>
 									   </table>
@@ -758,7 +781,70 @@
 								</div>
 							</div>
 						   
+							<div class="col-sm-4">
+								<div class="card">
+                                    <div class="card-header text-center">
+                                       <h4> Age-adjusted_Death_Rate </h4>
+                                    </div>
+                                    <div class="card-body">
+                                       <table class="table table-striped">
+											<thead>
+												<tr>
+												  <th>Statistic</th>
+												  <th>Value</th>
+												</tr>
+											  </thead>
+											  <tbody>
+												<tr>
+												 <td style="width: 146.4px;">Count</td>
+												 <td style="width: 147.2px;">538.0</td>
+												</tr>
+												<tr>
+												 <td style="width: 146.4px;">Mean</td>
+												 <td style="width: 147.2px;">1641.23</td>
+												</tr>
+												<tr>
+												 <td style="width: 146.4px;">Median</td>
+												 <td style="width: 147.2px;">1603.55</td>
+												</tr>
+												<tr>
+												 <td style="width: 146.4px;">Std Dev</td>
+												 <td style="width: 147.2px;">657.98</td>
+												</tr><tr>
+												 <td style="width: 146.4px;">Min</td>
+												 <td style="width: 147.2px;">616.7</td>
+												</tr><tr>
+												 <td style="width: 146.4px;">25%</td>
+												 <td style="width: 147.2px;">1090.12</td>
+												</tr><tr>
+												 <td style="width: 146.4px;">50%</td>
+												 <td style="width: 147.2px;">1603.55</td>
+												</tr><tr>
+												 <td style="width: 146.4px;">75%</td>
+												 <td style="width: 147.2px;">2073.48</td>
+												</tr><tr>
+												 <td style="width: 146.4px;">Max</td>
+												 <td style="width: 147.2px;">3845.7</td>
+												</tr><tr>
+												 <td style="width: 146.4px;">Variance</td>
+												 <td style="width: 147.2px;">432132.9736</td>
+												</tr>
+											  </tbody>
+									   </table>
+									   <div class = "row">
+									   <img src="./output/Age-adjusted_Death_Rate.png" class="Age-adjusted_Death_Rate" alt="" height="100%" width="100%"> </img>
+									   </div>
+									   <div class = "row">
+										   <div class="embed-wrapper">
+											  <div id="Age-adjusted_Death_RateHistChart" ></div>
+										   </div>
+									   </div>
+									</div>
+								</div>
+							</div>
+						   
 						   </div>
+						   
 						    <div class="card">
 							   <div class="card-header">
 								  <h3 class="card-title">CoRelation Heatmap</h3>
@@ -768,21 +854,21 @@
 										<div id="CorrChart"><!-- Plotly chart will be drawn inside this DIV --></div>
 										<script>
 											  var colorscaleValue = [
-												  [0, '#5D535E'],
-												  [0.5, '#FFFFFF'],
-												  [1, '#F69454']
+												  [0, '#DDA288'],
+												  [0.5, '#FEF2E4'],
+												  [1, '#7E675E']
 												];
 												var data = [
 											  {
 												z: [
 													
-													[1.0,-0.9868],
+													[1.0,-0.9863],
 													
-													[-0.9868,1.0],
+													[-0.9863,1.0],
 													
 													],
-												x: ['Age-adjusted_Death_Rate','Average_Life_Expectancy__Years_'],
-												y: ['Age-adjusted_Death_Rate','Average_Life_Expectancy__Years_'],
+												x: ['Average_Life_Expectancy__Years_','Age-adjusted_Death_Rate'],
+												y: ['Average_Life_Expectancy__Years_','Age-adjusted_Death_Rate'],
 												type: 'heatmap',
 												colorscale: colorscaleValue
 												
@@ -794,6 +880,19 @@
 									</div>
 							   </div>
 							</div>
+							
+							<!-- Scatter Plot - Matrix -->
+							<div class="card">
+							   <div class="card-header">
+								  <h3 class="card-title">Scatter Plot</h3>
+							   </div>
+							   <div class="card-body text-center">
+									<div class = "row text-center">
+										<C><img src="./output/Scatter.png"  alt="" height="90%" width="90%"> </img></C>
+									</div>
+								</div>
+							</div>
+							
 							
 							
 							<div class="card">
@@ -827,13 +926,13 @@
 														  <tbody>
 															 
 															 <tr>
-																<td style="width: 146.4px;">Age-adjusted_Death_Rate</td>
-																<td style="width: 147.2px;">3.342</td>
+																<td style="width: 146.4px;">Average_Life_Expectancy__Years_</td>
+																<td style="width: 147.2px;">3.691</td>
 															 </tr>
 															 
 															 <tr>
-																<td style="width: 146.4px;">Average_Life_Expectancy__Years_</td>
-																<td style="width: 147.2px;">3.342</td>
+																<td style="width: 146.4px;">Age-adjusted_Death_Rate</td>
+																<td style="width: 147.2px;">3.691</td>
 															 </tr>
 															 
 														  </tbody>
@@ -857,13 +956,13 @@
 														  <tbody>
 															 
 															 <tr>
-																<td style="width: 146.4px;">Age-adjusted_Death_Rate</td>
-																<td style="width: 147.2px;">0.045</td>
+																<td style="width: 146.4px;">Average_Life_Expectancy__Years_</td>
+																<td style="width: 147.2px;">0.047</td>
 															 </tr>
 															 
 															 <tr>
-																<td style="width: 146.4px;">Average_Life_Expectancy__Years_</td>
-																<td style="width: 147.2px;">0.052</td>
+																<td style="width: 146.4px;">Age-adjusted_Death_Rate</td>
+																<td style="width: 147.2px;">0.041</td>
 															 </tr>
 															 
 														  </tbody>
@@ -898,116 +997,6 @@
                               </div>
                            </div>
                            <div class="row">
-                              
-                              <div class="col-sm-4">
-                                 <div class="card">
-                                    <div class="card-header text-center">
-                                       <h4> LifeExpectency </h4>
-                                    </div>
-                                    <div class="card-body">
-                                       <!-- <div class="table-responsive"> -->
-                                       <table class="table table-striped">
-                                          <thead>
-                                             <tr>
-                                                <th>Category</th>
-                                                <th>Number of Records</th>
-                                             </tr>
-                                          </thead>
-                                          <tbody>
-                                             
-                                             <tr>
-                                                <td style="width: 146.4px;">High</td>
-                                                <td style="width: 147.2px;">473</td>
-                                             </tr>
-                                             
-                                             <tr>
-                                                <td style="width: 146.4px;">Low</td>
-                                                <td style="width: 147.2px;">217</td>
-                                             </tr>
-                                             
-                                          </tbody>
-                                       </table>
-                                       <div class="embed-wrapper">
-                                          <div id="LifeExpectencyPieChart" style="height: 12rem;" ></div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                              
-                              <div class="col-sm-4">
-                                 <div class="card">
-                                    <div class="card-header text-center">
-                                       <h4> Sex </h4>
-                                    </div>
-                                    <div class="card-body">
-                                       <!-- <div class="table-responsive"> -->
-                                       <table class="table table-striped">
-                                          <thead>
-                                             <tr>
-                                                <th>Category</th>
-                                                <th>Number of Records</th>
-                                             </tr>
-                                          </thead>
-                                          <tbody>
-                                             
-                                             <tr>
-                                                <td style="width: 146.4px;">Female</td>
-                                                <td style="width: 147.2px;">345</td>
-                                             </tr>
-                                             
-                                             <tr>
-                                                <td style="width: 146.4px;">Male</td>
-                                                <td style="width: 147.2px;">345</td>
-                                             </tr>
-                                             
-                                          </tbody>
-                                       </table>
-                                       <div class="embed-wrapper">
-                                          <div id="SexPieChart" style="height: 12rem;" ></div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                              
-                              <div class="col-sm-4">
-                                 <div class="card">
-                                    <div class="card-header text-center">
-                                       <h4> Race2 </h4>
-                                    </div>
-                                    <div class="card-body">
-                                       <!-- <div class="table-responsive"> -->
-                                       <table class="table table-striped">
-                                          <thead>
-                                             <tr>
-                                                <th>Category</th>
-                                                <th>Number of Records</th>
-                                             </tr>
-                                          </thead>
-                                          <tbody>
-                                             
-                                             <tr>
-                                                <td style="width: 146.4px;">All Races</td>
-                                                <td style="width: 147.2px;">230</td>
-                                             </tr>
-                                             
-                                             <tr>
-                                                <td style="width: 146.4px;">Black</td>
-                                                <td style="width: 147.2px;">230</td>
-                                             </tr>
-                                             
-                                             <tr>
-                                                <td style="width: 146.4px;">White</td>
-                                                <td style="width: 147.2px;">230</td>
-                                             </tr>
-                                             
-                                          </tbody>
-                                       </table>
-                                       <div class="embed-wrapper">
-                                          <div id="Race2PieChart" style="height: 12rem;" ></div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
                               
                               <div class="col-sm-4">
                                  <div class="card">
@@ -1049,6 +1038,116 @@
                                  </div>
                               </div>
                               
+                              <div class="col-sm-4">
+                                 <div class="card">
+                                    <div class="card-header text-center">
+                                       <h4> Sex </h4>
+                                    </div>
+                                    <div class="card-body">
+                                       <!-- <div class="table-responsive"> -->
+                                       <table class="table table-striped">
+                                          <thead>
+                                             <tr>
+                                                <th>Category</th>
+                                                <th>Number of Records</th>
+                                             </tr>
+                                          </thead>
+                                          <tbody>
+                                             
+                                             <tr>
+                                                <td style="width: 146.4px;">Female</td>
+                                                <td style="width: 147.2px;">333</td>
+                                             </tr>
+                                             
+                                             <tr>
+                                                <td style="width: 146.4px;">Male</td>
+                                                <td style="width: 147.2px;">345</td>
+                                             </tr>
+                                             
+                                          </tbody>
+                                       </table>
+                                       <div class="embed-wrapper">
+                                          <div id="SexPieChart" style="height: 12rem;" ></div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              
+                              <div class="col-sm-4">
+                                 <div class="card">
+                                    <div class="card-header text-center">
+                                       <h4> LifeExpectency </h4>
+                                    </div>
+                                    <div class="card-body">
+                                       <!-- <div class="table-responsive"> -->
+                                       <table class="table table-striped">
+                                          <thead>
+                                             <tr>
+                                                <th>Category</th>
+                                                <th>Number of Records</th>
+                                             </tr>
+                                          </thead>
+                                          <tbody>
+                                             
+                                             <tr>
+                                                <td style="width: 146.4px;">High</td>
+                                                <td style="width: 147.2px;">473</td>
+                                             </tr>
+                                             
+                                             <tr>
+                                                <td style="width: 146.4px;">Low</td>
+                                                <td style="width: 147.2px;">217</td>
+                                             </tr>
+                                             
+                                          </tbody>
+                                       </table>
+                                       <div class="embed-wrapper">
+                                          <div id="LifeExpectencyPieChart" style="height: 12rem;" ></div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              
+                              <div class="col-sm-4">
+                                 <div class="card">
+                                    <div class="card-header text-center">
+                                       <h4> Race2 </h4>
+                                    </div>
+                                    <div class="card-body">
+                                       <!-- <div class="table-responsive"> -->
+                                       <table class="table table-striped">
+                                          <thead>
+                                             <tr>
+                                                <th>Category</th>
+                                                <th>Number of Records</th>
+                                             </tr>
+                                          </thead>
+                                          <tbody>
+                                             
+                                             <tr>
+                                                <td style="width: 146.4px;">All Races</td>
+                                                <td style="width: 147.2px;">217</td>
+                                             </tr>
+                                             
+                                             <tr>
+                                                <td style="width: 146.4px;">Black</td>
+                                                <td style="width: 147.2px;">230</td>
+                                             </tr>
+                                             
+                                             <tr>
+                                                <td style="width: 146.4px;">White</td>
+                                                <td style="width: 147.2px;">230</td>
+                                             </tr>
+                                             
+                                          </tbody>
+                                       </table>
+                                       <div class="embed-wrapper">
+                                          <div id="Race2PieChart" style="height: 12rem;" ></div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              
                            </div>
 						   
 						   <div class = "row">
@@ -1072,9 +1171,9 @@
 														<option value=LifeExpectency >LifeExpectency</option>
 														
 														
-														<option value=Race2 >Race2</option>
-														
 														<option value=Race >Race</option>
+														
+														<option value=Race2 >Race2</option>
 														
 													</select>
 												</div>
@@ -1092,9 +1191,9 @@
 														<option value=LifeExpectency >LifeExpectency</option>
 														
 														
-														<option value=Race2 >Race2</option>
-														
 														<option value=Race >Race</option>
+														
+														<option value=Race2 >Race2</option>
 														
 														
 													</select>
@@ -1106,59 +1205,19 @@
 										
 										<div class="row">
 											<div class="col-xl-12">
-												<div id=SexLifeExpectency style="display: none;">
+												<div id=SexRace style="display: none;">
 													<table width = "100%">
 														<tbody>
 															<tr>
 																<td colspan="3">
 																	
-																		<div class = "card">
-																			<div class="card-header">
+																	<div class="card">
+																		<div class="card-header">
 																				<h4> WOE and IV </h4>
 																			</div>
-																			<div class = "card-body">
-																				<div class="table-responsive">
-																					<table class="table card-table table-striped table-vcenter">
-																					<thead>
-																						<tr>
-																							<th> Category </th>
-																							<th> Weight Of Evidence </th>
-																						</tr>
-												  
-																					</thead>
-																					  <tbody>
-																					  
-																						 <tr>
-																							<td>Male</td>
-																							<td>-0.18</td>
-																						 </tr>
-																						 
-																						 <tr>
-																							<td>Female</td>
-																							<td>0.19</td>
-																						 </tr>
-																						 
-																						 <tr>
-																							<td><div class="h5">Information Value</div></td>
-																							<td><div class="h5">
-																								<article id="insight">
-																									<div class="insight">
-																									
-																										<a class="h4 m-0 text-danger" href="#"><u>0.03</u></a>
-																									  <div class="text-danger"
-																										<p>The variable "Sex" is weak predictor of the variable "LifeExpectency".</p>
-																									  </div>
-																									
-																									</div>
-																									</article>
-																							</div></td>
-																							<td></td>
-																						 </tr>
-																					  </tbody>
-																				   </table>
-																				</div>
-																			</div>
-																		</div>
+																		<br> 
+																		<h5> Dependent Variable is not Binary </h5>
+																	</div>
 																	
 																</td>
 																<td colspan="2">
@@ -1168,7 +1227,7 @@
 																		</div>
 																		<div class="card-body text-center">
 																			<div class="h4"><u>Chi Value</u></div>
-																			<div class="h5">4.54</div>
+																			<div class="h5">0.45</div>
 																		</div>
 																		<div class="card-body text-center">
 																			<div class="h4"><u>p-Value</u></div>
@@ -1176,9 +1235,9 @@
 																				<article id="insight">
 																					<div class="insight">
 																					
-																						<a class="h4 m-0 text-danger" href="#"><u>0.0330269258428828</u></a>
-																					  <div class="text-danger"
-																						<p>With the confidence limit of 0.05, the variable "LifeExpectency" is statistically dependent on the variable "Sex"</p>
+																					  <a class="h4 m-0 text-success" href="#"><u>0.7991946416912096</u></a>
+																					  <div class="text-success"
+																						<p>With the confidence limit of 0.05, the variable "Race" is statistically independent from the variable "Sex"</p>
 																					  </div>
 																					
 																					</div>
@@ -1197,7 +1256,7 @@
 										
 										<div class="row">
 											<div class="col-xl-12">
-												<div id=Race2LifeExpectency style="display: none;">
+												<div id=RaceSex style="display: none;">
 													<table width = "100%">
 														<tbody>
 															<tr>
@@ -1221,17 +1280,17 @@
 																					  
 																						 <tr>
 																							<td>All Races</td>
-																							<td>0.24</td>
+																							<td>-0.17</td>
 																						 </tr>
 																						 
 																						 <tr>
 																							<td>Black</td>
-																							<td>-0.53</td>
+																							<td>0.04</td>
 																						 </tr>
 																						 
 																						 <tr>
 																							<td>White</td>
-																							<td>0.38</td>
+																							<td>0.04</td>
 																						 </tr>
 																						 
 																						 <tr>
@@ -1240,9 +1299,9 @@
 																								<article id="insight">
 																									<div class="insight">
 																									
-																									  <a class="h4 m-0 text-success" href="#"><u>0.17</u></a>
-																									  <div class="text-success"
-																										<p>The variable "Race2" is medium predictor of the variable "LifeExpectency".</p>
+																										<a class="h4 m-0 text-danger" href="#"><u>0.01</u></a>
+																									  <div class="text-danger"
+																										<p>The variable "Race" is very poor predictor of the variable "Sex".</p>
 																									  </div>
 																									
 																									</div>
@@ -1264,6 +1323,57 @@
 																		</div>
 																		<div class="card-body text-center">
 																			<div class="h4"><u>Chi Value</u></div>
+																			<div class="h5">0.45</div>
+																		</div>
+																		<div class="card-body text-center">
+																			<div class="h4"><u>p-Value</u></div>
+																			<div class="h5 mb-4">
+																				<article id="insight">
+																					<div class="insight">
+																					
+																					  <a class="h4 m-0 text-success" href="#"><u>0.7991946416912096</u></a>
+																					  <div class="text-success"
+																						<p>With the confidence limit of 0.05, the variable "Race" is statistically independent from the variable "Sex"</p>
+																					  </div>
+																					
+																					</div>
+																					</article>
+																			
+																			</div>
+																		</div>
+																	</div>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+										
+										<div class="row">
+											<div class="col-xl-12">
+												<div id=LifeExpectencyRace style="display: none;">
+													<table width = "100%">
+														<tbody>
+															<tr>
+																<td colspan="3">
+																	
+																	<div class="card">
+																		<div class="card-header">
+																				<h4> WOE and IV </h4>
+																			</div>
+																		<br> 
+																		<h5> Dependent Variable is not Binary </h5>
+																	</div>
+																	
+																</td>
+																<td colspan="2">
+																	<div class="card">
+																		<div class="card-header">
+																			<h4> ChiSquare </h4>
+																		</div>
+																		<div class="card-body text-center">
+																			<div class="h4"><u>Chi Value</u></div>
 																			<div class="h5">25.22</div>
 																		</div>
 																		<div class="card-body text-center">
@@ -1274,7 +1384,7 @@
 																					
 																						<a class="h4 m-0 text-danger" href="#"><u>3.33401040806708e-06</u></a>
 																					  <div class="text-danger"
-																						<p>With the confidence limit of 0.05, the variable "LifeExpectency" is statistically dependent on the variable "Sex"</p>
+																						<p>With the confidence limit of 0.05, the variable "Race" is statistically independent from the variable "Sex"</p>
 																					  </div>
 																					
 																					</div>
@@ -1370,7 +1480,109 @@
 																					
 																						<a class="h4 m-0 text-danger" href="#"><u>3.33401040806708e-06</u></a>
 																					  <div class="text-danger"
-																						<p>With the confidence limit of 0.05, the variable "LifeExpectency" is statistically dependent on the variable "Sex"</p>
+																						<p>With the confidence limit of 0.05, the variable "Race" is statistically independent from the variable "Sex"</p>
+																					  </div>
+																					
+																					</div>
+																					</article>
+																			
+																			</div>
+																		</div>
+																	</div>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+										
+										<div class="row">
+											<div class="col-xl-12">
+												<div id=Race2Race style="display: none;">
+													<table width = "100%">
+														<tbody>
+															<tr>
+																<td colspan="3">
+																	
+																	<div class="card">
+																		<div class="card-header">
+																				<h4> WOE and IV </h4>
+																			</div>
+																		<br> 
+																		<h5> Dependent Variable is not Binary </h5>
+																	</div>
+																	
+																</td>
+																<td colspan="2">
+																	<div class="card">
+																		<div class="card-header">
+																			<h4> ChiSquare </h4>
+																		</div>
+																		<div class="card-body text-center">
+																			<div class="h4"><u>Chi Value</u></div>
+																			<div class="h5">1354.0</div>
+																		</div>
+																		<div class="card-body text-center">
+																			<div class="h4"><u>p-Value</u></div>
+																			<div class="h5 mb-4">
+																				<article id="insight">
+																					<div class="insight">
+																					
+																						<a class="h4 m-0 text-danger" href="#"><u>6.514265355459224e-292</u></a>
+																					  <div class="text-danger"
+																						<p>With the confidence limit of 0.05, the variable "Race" is statistically independent from the variable "Sex"</p>
+																					  </div>
+																					
+																					</div>
+																					</article>
+																			
+																			</div>
+																		</div>
+																	</div>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+										
+										<div class="row">
+											<div class="col-xl-12">
+												<div id=RaceRace2 style="display: none;">
+													<table width = "100%">
+														<tbody>
+															<tr>
+																<td colspan="3">
+																	
+																	<div class="card">
+																		<div class="card-header">
+																				<h4> WOE and IV </h4>
+																			</div>
+																		<br> 
+																		<h5> Dependent Variable is not Binary </h5>
+																	</div>
+																	
+																</td>
+																<td colspan="2">
+																	<div class="card">
+																		<div class="card-header">
+																			<h4> ChiSquare </h4>
+																		</div>
+																		<div class="card-body text-center">
+																			<div class="h4"><u>Chi Value</u></div>
+																			<div class="h5">1354.0</div>
+																		</div>
+																		<div class="card-body text-center">
+																			<div class="h4"><u>p-Value</u></div>
+																			<div class="h5 mb-4">
+																				<article id="insight">
+																					<div class="insight">
+																					
+																						<a class="h4 m-0 text-danger" href="#"><u>6.514265355459224e-292</u></a>
+																					  <div class="text-danger"
+																						<p>With the confidence limit of 0.05, the variable "Race" is statistically independent from the variable "Sex"</p>
 																					  </div>
 																					
 																					</div>
@@ -1412,13 +1624,13 @@
 																					  <tbody>
 																					  
 																						 <tr>
-																							<td>Low</td>
-																							<td>-0.25</td>
+																							<td>High</td>
+																							<td>0.05</td>
 																						 </tr>
 																						 
 																						 <tr>
-																							<td>High</td>
-																							<td>0.11</td>
+																							<td>Low</td>
+																							<td>-0.21</td>
 																						 </tr>
 																						 
 																						 <tr>
@@ -1427,9 +1639,9 @@
 																								<article id="insight">
 																									<div class="insight">
 																									
-																										<a class="h4 m-0 text-danger" href="#"><u>0.03</u></a>
+																										<a class="h4 m-0 text-danger" href="#"><u>0.02</u></a>
 																									  <div class="text-danger"
-																										<p>The variable "LifeExpectency" is weak predictor of the variable "Sex".</p>
+																										<p>The variable "LifeExpectency" is very poor predictor of the variable "Sex".</p>
 																									  </div>
 																									
 																									</div>
@@ -1451,7 +1663,7 @@
 																		</div>
 																		<div class="card-body text-center">
 																			<div class="h4"><u>Chi Value</u></div>
-																			<div class="h5">4.54</div>
+																			<div class="h5">3.33</div>
 																		</div>
 																		<div class="card-body text-center">
 																			<div class="h4"><u>p-Value</u></div>
@@ -1459,9 +1671,9 @@
 																				<article id="insight">
 																					<div class="insight">
 																					
-																						<a class="h4 m-0 text-danger" href="#"><u>0.0330269258428828</u></a>
+																						<a class="h4 m-0 text-danger" href="#"><u>0.06806727487560077</u></a>
 																					  <div class="text-danger"
-																						<p>With the confidence limit of 0.05, the variable "LifeExpectency" is statistically dependent on the variable "Sex"</p>
+																						<p>With the confidence limit of 0.05, the variable "Race" is statistically independent from the variable "Sex"</p>
 																					  </div>
 																					
 																					</div>
@@ -1502,7 +1714,7 @@
 																		</div>
 																		<div class="card-body text-center">
 																			<div class="h4"><u>Chi Value</u></div>
-																			<div class="h5">0.0</div>
+																			<div class="h5">0.62</div>
 																		</div>
 																		<div class="card-body text-center">
 																			<div class="h4"><u>p-Value</u></div>
@@ -1510,9 +1722,9 @@
 																				<article id="insight">
 																					<div class="insight">
 																					
-																					  <a class="h4 m-0 text-success" href="#"><u>1.0</u></a>
+																					  <a class="h4 m-0 text-success" href="#"><u>0.7342793300928852</u></a>
 																					  <div class="text-success"
-																						<p>With the confidence limit of 0.05, the variable "LifeExpectency" is statistically dependent on the variable "Sex"</p>
+																						<p>With the confidence limit of 0.05, the variable "Race" is statistically independent from the variable "Sex"</p>
 																					  </div>
 																					
 																					</div>
@@ -1531,19 +1743,59 @@
 										
 										<div class="row">
 											<div class="col-xl-12">
-												<div id=RaceSex style="display: none;">
+												<div id=SexLifeExpectency style="display: none;">
 													<table width = "100%">
 														<tbody>
 															<tr>
 																<td colspan="3">
 																	
-																	<div class="card">
-																		<div class="card-header">
+																		<div class = "card">
+																			<div class="card-header">
 																				<h4> WOE and IV </h4>
 																			</div>
-																		<br> 
-																		<h5> Dependent Variable is not Binary </h5>
-																	</div>
+																			<div class = "card-body">
+																				<div class="table-responsive">
+																					<table class="table card-table table-striped table-vcenter">
+																					<thead>
+																						<tr>
+																							<th> Category </th>
+																							<th> Weight Of Evidence </th>
+																						</tr>
+												  
+																					</thead>
+																					  <tbody>
+																					  
+																						 <tr>
+																							<td>Female</td>
+																							<td>0.32</td>
+																						 </tr>
+																						 
+																						 <tr>
+																							<td>Male</td>
+																							<td>-0.18</td>
+																						 </tr>
+																						 
+																						 <tr>
+																							<td><div class="h5">Information Value</div></td>
+																							<td><div class="h5">
+																								<article id="insight">
+																									<div class="insight">
+																									
+																										<a class="h4 m-0 text-danger" href="#"><u>0.06</u></a>
+																									  <div class="text-danger"
+																										<p>The variable "Sex" is weak predictor of the variable "LifeExpectency".</p>
+																									  </div>
+																									
+																									</div>
+																									</article>
+																							</div></td>
+																							<td></td>
+																						 </tr>
+																					  </tbody>
+																				   </table>
+																				</div>
+																			</div>
+																		</div>
 																	
 																</td>
 																<td colspan="2">
@@ -1553,7 +1805,7 @@
 																		</div>
 																		<div class="card-body text-center">
 																			<div class="h4"><u>Chi Value</u></div>
-																			<div class="h5">0.0</div>
+																			<div class="h5">3.33</div>
 																		</div>
 																		<div class="card-body text-center">
 																			<div class="h4"><u>p-Value</u></div>
@@ -1561,60 +1813,9 @@
 																				<article id="insight">
 																					<div class="insight">
 																					
-																					  <a class="h4 m-0 text-success" href="#"><u>1.0</u></a>
-																					  <div class="text-success"
-																						<p>With the confidence limit of 0.05, the variable "LifeExpectency" is statistically dependent on the variable "Sex"</p>
-																					  </div>
-																					
-																					</div>
-																					</article>
-																			
-																			</div>
-																		</div>
-																	</div>
-																</td>
-															</tr>
-														</tbody>
-													</table>
-												</div>
-											</div>
-										</div>
-										
-										<div class="row">
-											<div class="col-xl-12">
-												<div id=RaceRace2 style="display: none;">
-													<table width = "100%">
-														<tbody>
-															<tr>
-																<td colspan="3">
-																	
-																	<div class="card">
-																		<div class="card-header">
-																				<h4> WOE and IV </h4>
-																			</div>
-																		<br> 
-																		<h5> Dependent Variable is not Binary </h5>
-																	</div>
-																	
-																</td>
-																<td colspan="2">
-																	<div class="card">
-																		<div class="card-header">
-																			<h4> ChiSquare </h4>
-																		</div>
-																		<div class="card-body text-center">
-																			<div class="h4"><u>Chi Value</u></div>
-																			<div class="h5">1380.0</div>
-																		</div>
-																		<div class="card-body text-center">
-																			<div class="h4"><u>p-Value</u></div>
-																			<div class="h5 mb-4">
-																				<article id="insight">
-																					<div class="insight">
-																					
-																						<a class="h4 m-0 text-danger" href="#"><u>1.5006711524405268e-297</u></a>
+																						<a class="h4 m-0 text-danger" href="#"><u>0.06806727487560077</u></a>
 																					  <div class="text-danger"
-																						<p>With the confidence limit of 0.05, the variable "LifeExpectency" is statistically dependent on the variable "Sex"</p>
+																						<p>With the confidence limit of 0.05, the variable "Race" is statistically independent from the variable "Sex"</p>
 																					  </div>
 																					
 																					</div>
@@ -1633,19 +1834,64 @@
 										
 										<div class="row">
 											<div class="col-xl-12">
-												<div id=Race2Race style="display: none;">
+												<div id=Race2LifeExpectency style="display: none;">
 													<table width = "100%">
 														<tbody>
 															<tr>
 																<td colspan="3">
 																	
-																	<div class="card">
-																		<div class="card-header">
+																		<div class = "card">
+																			<div class="card-header">
 																				<h4> WOE and IV </h4>
 																			</div>
-																		<br> 
-																		<h5> Dependent Variable is not Binary </h5>
-																	</div>
+																			<div class = "card-body">
+																				<div class="table-responsive">
+																					<table class="table card-table table-striped table-vcenter">
+																					<thead>
+																						<tr>
+																							<th> Category </th>
+																							<th> Weight Of Evidence </th>
+																						</tr>
+												  
+																					</thead>
+																					  <tbody>
+																					  
+																						 <tr>
+																							<td>All Races</td>
+																							<td>0.48</td>
+																						 </tr>
+																						 
+																						 <tr>
+																							<td>Black</td>
+																							<td>-0.53</td>
+																						 </tr>
+																						 
+																						 <tr>
+																							<td>White</td>
+																							<td>0.38</td>
+																						 </tr>
+																						 
+																						 <tr>
+																							<td><div class="h5">Information Value</div></td>
+																							<td><div class="h5">
+																								<article id="insight">
+																									<div class="insight">
+																									
+																									  <a class="h4 m-0 text-success" href="#"><u>0.21</u></a>
+																									  <div class="text-success"
+																										<p>The variable "Race2" is medium predictor of the variable "LifeExpectency".</p>
+																									  </div>
+																									
+																									</div>
+																									</article>
+																							</div></td>
+																							<td></td>
+																						 </tr>
+																					  </tbody>
+																				   </table>
+																				</div>
+																			</div>
+																		</div>
 																	
 																</td>
 																<td colspan="2">
@@ -1655,7 +1901,7 @@
 																		</div>
 																		<div class="card-body text-center">
 																			<div class="h4"><u>Chi Value</u></div>
-																			<div class="h5">1380.0</div>
+																			<div class="h5">23.4</div>
 																		</div>
 																		<div class="card-body text-center">
 																			<div class="h4"><u>p-Value</u></div>
@@ -1663,9 +1909,9 @@
 																				<article id="insight">
 																					<div class="insight">
 																					
-																						<a class="h4 m-0 text-danger" href="#"><u>1.5006711524405268e-297</u></a>
+																						<a class="h4 m-0 text-danger" href="#"><u>8.291745490875061e-06</u></a>
 																					  <div class="text-danger"
-																						<p>With the confidence limit of 0.05, the variable "LifeExpectency" is statistically dependent on the variable "Sex"</p>
+																						<p>With the confidence limit of 0.05, the variable "Race" is statistically independent from the variable "Sex"</p>
 																					  </div>
 																					
 																					</div>
@@ -1709,13 +1955,13 @@
 											<select class ="dropdown-item" id = "Categorical" onchange="showAnova(this)">
 												<option value="Null" ></option>
 												
-												<option value=LifeExpectency >LifeExpectency</option>
+												<option value=Race >Race</option>
 												
 												<option value=Sex >Sex</option>
 												
-												<option value=Race2 >Race2</option>
+												<option value=LifeExpectency >LifeExpectency</option>
 												
-												<option value=Race >Race</option>
+												<option value=Race2 >Race2</option>
 												
 											</select>
 										</div>
@@ -1728,9 +1974,9 @@
 											<select class ="dropdown-item" id = "Continuous" onchange="showAnova(this)">
 												<option value="Null" ></option>
 												
-												<option value=Age-adjusted_Death_Rate >Age-adjusted_Death_Rate</option>
-												
 												<option value=Average_Life_Expectancy__Years_ >Average_Life_Expectancy__Years_</option>
+												
+												<option value=Age-adjusted_Death_Rate >Age-adjusted_Death_Rate</option>
 												
 											</select>
 										</div>
@@ -1738,22 +1984,22 @@
 								</div>
 								
 								
-								<div id=LifeExpectencyAge-adjusted_Death_RateAnova style="display: none;">
+								<div id=RaceAverage_Life_Expectancy__Years_Anova style="display: none;">
 									<div class="row row-cards">
 										<div class = "card col-xl-4">
 											<div class="card-header">
 												<h4> <c> One Way Anova </c> </h4>
 											</div>
 											<div class = "card-body text-center">
-											<div class="text-muted mb-4">F-Score</div> <div class="h1 m-0">1301.662</div>
+											<div class="text-muted mb-4">F-Score</div> <div class="h1 m-0">nan</div>
 											<br>
 											<div class="text-muted mb-4">p-Value</div> <div class="h1 m-0">
 												<article id="insight">
 												<ul>
 												<div class="insight">
-												  <a class="h4 m-0" href="#"><u>8.416982710912266e-161</u></a>
+												  <a class="h4 m-0" href="#"><u>nan</u></a>
 												  <div class="text-success"
-													<p>With Confidence interval of 0.05, the variable - "Age-adjusted_Death_Rate" is influenced by the categorical variable - "LifeExpectency". As the Categorical variable - "LifeExpectency" is binary, Tukey's HSD test is not necessary. </p>
+													<p>As the p-Value is higher than the Confidence Interval 0.05, the variable - "Average_Life_Expectancy__Years_" is not influenced by the categorical variable - "Race". </p>
 												  </div>
 												</div>
 												</article>
@@ -1770,54 +2016,22 @@
 									</div>
 								</div>
 								
-								<div id=LifeExpectencyAverage_Life_Expectancy__Years_Anova style="display: none;">
+								<div id=RaceAge-adjusted_Death_RateAnova style="display: none;">
 									<div class="row row-cards">
 										<div class = "card col-xl-4">
 											<div class="card-header">
 												<h4> <c> One Way Anova </c> </h4>
 											</div>
 											<div class = "card-body text-center">
-											<div class="text-muted mb-4">F-Score</div> <div class="h1 m-0">1507.296</div>
+											<div class="text-muted mb-4">F-Score</div> <div class="h1 m-0">nan</div>
 											<br>
 											<div class="text-muted mb-4">p-Value</div> <div class="h1 m-0">
 												<article id="insight">
 												<ul>
 												<div class="insight">
-												  <a class="h4 m-0" href="#"><u>1.6640670955433044e-175</u></a>
+												  <a class="h4 m-0" href="#"><u>nan</u></a>
 												  <div class="text-success"
-													<p>With Confidence interval of 0.05, the variable - "Average_Life_Expectancy__Years_" is influenced by the categorical variable - "LifeExpectency". As the Categorical variable - "LifeExpectency" is binary, Tukey's HSD test is not necessary. </p>
-												  </div>
-												</div>
-												</article>
-												
-											</div>
-											</div>
-										</div>
-										<div class = "card col-xl-8">
-										
-											<div class="text-center"><br><br><br><h4>Post Hoc Test Not required</h4></div>
-										
-											
-										</div>
-									</div>
-								</div>
-								
-								<div id=SexAge-adjusted_Death_RateAnova style="display: none;">
-									<div class="row row-cards">
-										<div class = "card col-xl-4">
-											<div class="card-header">
-												<h4> <c> One Way Anova </c> </h4>
-											</div>
-											<div class = "card-body text-center">
-											<div class="text-muted mb-4">F-Score</div> <div class="h1 m-0">61.578</div>
-											<br>
-											<div class="text-muted mb-4">p-Value</div> <div class="h1 m-0">
-												<article id="insight">
-												<ul>
-												<div class="insight">
-												  <a class="h4 m-0" href="#"><u>1.63042700415119e-14</u></a>
-												  <div class="text-success"
-													<p>With Confidence interval of 0.05, the variable - "Age-adjusted_Death_Rate" is influenced by the categorical variable - "Sex". As the Categorical variable - "Sex" is binary, Tukey's HSD test is not necessary. </p>
+													<p>As the p-Value is higher than the Confidence Interval 0.05, the variable - "Age-adjusted_Death_Rate" is not influenced by the categorical variable - "Race". </p>
 												  </div>
 												</div>
 												</article>
@@ -1841,15 +2055,143 @@
 												<h4> <c> One Way Anova </c> </h4>
 											</div>
 											<div class = "card-body text-center">
-											<div class="text-muted mb-4">F-Score</div> <div class="h1 m-0">34.615</div>
+											<div class="text-muted mb-4">F-Score</div> <div class="h1 m-0">nan</div>
 											<br>
 											<div class="text-muted mb-4">p-Value</div> <div class="h1 m-0">
 												<article id="insight">
 												<ul>
 												<div class="insight">
-												  <a class="h4 m-0" href="#"><u>6.2721116377414355e-09</u></a>
+												  <a class="h4 m-0" href="#"><u>nan</u></a>
 												  <div class="text-success"
-													<p>With Confidence interval of 0.05, the variable - "Average_Life_Expectancy__Years_" is influenced by the categorical variable - "Sex". As the Categorical variable - "Sex" is binary, Tukey's HSD test is not necessary. </p>
+													<p>As the p-Value is higher than the Confidence Interval 0.05, the variable - "Average_Life_Expectancy__Years_" is not influenced by the categorical variable - "Sex". </p>
+												  </div>
+												</div>
+												</article>
+												
+											</div>
+											</div>
+										</div>
+										<div class = "card col-xl-8">
+										
+											<div class="text-center"><br><br><br><h4>Post Hoc Test Not required</h4></div>
+										
+											
+										</div>
+									</div>
+								</div>
+								
+								<div id=SexAge-adjusted_Death_RateAnova style="display: none;">
+									<div class="row row-cards">
+										<div class = "card col-xl-4">
+											<div class="card-header">
+												<h4> <c> One Way Anova </c> </h4>
+											</div>
+											<div class = "card-body text-center">
+											<div class="text-muted mb-4">F-Score</div> <div class="h1 m-0">nan</div>
+											<br>
+											<div class="text-muted mb-4">p-Value</div> <div class="h1 m-0">
+												<article id="insight">
+												<ul>
+												<div class="insight">
+												  <a class="h4 m-0" href="#"><u>nan</u></a>
+												  <div class="text-success"
+													<p>As the p-Value is higher than the Confidence Interval 0.05, the variable - "Age-adjusted_Death_Rate" is not influenced by the categorical variable - "Sex". </p>
+												  </div>
+												</div>
+												</article>
+												
+											</div>
+											</div>
+										</div>
+										<div class = "card col-xl-8">
+										
+											<div class="text-center"><br><br><br><h4>Post Hoc Test Not required</h4></div>
+										
+											
+										</div>
+									</div>
+								</div>
+								
+								<div id=LifeExpectencyAverage_Life_Expectancy__Years_Anova style="display: none;">
+									<div class="row row-cards">
+										<div class = "card col-xl-4">
+											<div class="card-header">
+												<h4> <c> One Way Anova </c> </h4>
+											</div>
+											<div class = "card-body text-center">
+											<div class="text-muted mb-4">F-Score</div> <div class="h1 m-0">nan</div>
+											<br>
+											<div class="text-muted mb-4">p-Value</div> <div class="h1 m-0">
+												<article id="insight">
+												<ul>
+												<div class="insight">
+												  <a class="h4 m-0" href="#"><u>nan</u></a>
+												  <div class="text-success"
+													<p>As the p-Value is higher than the Confidence Interval 0.05, the variable - "Average_Life_Expectancy__Years_" is not influenced by the categorical variable - "LifeExpectency". </p>
+												  </div>
+												</div>
+												</article>
+												
+											</div>
+											</div>
+										</div>
+										<div class = "card col-xl-8">
+										
+											<div class="text-center"><br><br><br><h4>Post Hoc Test Not required</h4></div>
+										
+											
+										</div>
+									</div>
+								</div>
+								
+								<div id=LifeExpectencyAge-adjusted_Death_RateAnova style="display: none;">
+									<div class="row row-cards">
+										<div class = "card col-xl-4">
+											<div class="card-header">
+												<h4> <c> One Way Anova </c> </h4>
+											</div>
+											<div class = "card-body text-center">
+											<div class="text-muted mb-4">F-Score</div> <div class="h1 m-0">nan</div>
+											<br>
+											<div class="text-muted mb-4">p-Value</div> <div class="h1 m-0">
+												<article id="insight">
+												<ul>
+												<div class="insight">
+												  <a class="h4 m-0" href="#"><u>nan</u></a>
+												  <div class="text-success"
+													<p>As the p-Value is higher than the Confidence Interval 0.05, the variable - "Age-adjusted_Death_Rate" is not influenced by the categorical variable - "LifeExpectency". </p>
+												  </div>
+												</div>
+												</article>
+												
+											</div>
+											</div>
+										</div>
+										<div class = "card col-xl-8">
+										
+											<div class="text-center"><br><br><br><h4>Post Hoc Test Not required</h4></div>
+										
+											
+										</div>
+									</div>
+								</div>
+								
+								<div id=Race2Average_Life_Expectancy__Years_Anova style="display: none;">
+									<div class="row row-cards">
+										<div class = "card col-xl-4">
+											<div class="card-header">
+												<h4> <c> One Way Anova </c> </h4>
+											</div>
+											<div class = "card-body text-center">
+											<div class="text-muted mb-4">F-Score</div> <div class="h1 m-0">nan</div>
+											<br>
+											<div class="text-muted mb-4">p-Value</div> <div class="h1 m-0">
+												<article id="insight">
+												<ul>
+												<div class="insight">
+												  <a class="h4 m-0" href="#"><u>nan</u></a>
+												  <div class="text-success"
+													<p>As the p-Value is higher than the Confidence Interval 0.05, the variable - "Average_Life_Expectancy__Years_" is not influenced by the categorical variable - "Race2". </p>
 												  </div>
 												</div>
 												</article>
@@ -1873,15 +2215,15 @@
 												<h4> <c> One Way Anova </c> </h4>
 											</div>
 											<div class = "card-body text-center">
-											<div class="text-muted mb-4">F-Score</div> <div class="h1 m-0">32.957</div>
+											<div class="text-muted mb-4">F-Score</div> <div class="h1 m-0">nan</div>
 											<br>
 											<div class="text-muted mb-4">p-Value</div> <div class="h1 m-0">
 												<article id="insight">
 												<ul>
 												<div class="insight">
-												  <a class="h4 m-0" href="#"><u>2.1509352213430778e-14</u></a>
+												  <a class="h4 m-0" href="#"><u>nan</u></a>
 												  <div class="text-success"
-													<p>With Confidence interval of 0.05, the variable - "Age-adjusted_Death_Rate" is influenced by the categorical variable - "Race2". </p>
+													<p>As the p-Value is higher than the Confidence Interval 0.05, the variable - "Age-adjusted_Death_Rate" is not influenced by the categorical variable - "Race2". </p>
 												  </div>
 												</div>
 												</article>
@@ -1891,423 +2233,7 @@
 										</div>
 										<div class = "card col-xl-8">
 										
-											<div class="card-header">
-												<h4> <c> Tukey HSD - Post Hoc Test (Null Hypothesis - No difference in the distributions) </c> </h4>
-											</div>
-											<div class = "card-body text-center">
-											
-												<div class="table-responsive">
-												  <table class="table card-table table-striped table-vcenter">
-													 <thead>
-														<tr>
-														   <th>Group 1</th>
-														   <th>Group 2</th>
-														   <th>Reject</th>
-														   <th>Mean Difference</th>
-														</tr>
-													 </thead>
-													 <tbody>
-														
-														 <tr>
-															<td style="width: 25%;">All Races</td>
-															<td style="width: 25%;">Black</td>
-															<td style="width: 25%;">
-															
-															<article id="insight">
-																<div class="insight">
-																  <a href="#"><u class="text-success m-0 h4">True</u></a>
-																  <div class="text-success"
-																	<p>Distribution of the continuous variable - "Age-adjusted_Death_Rate" for the categories "All Races" and "Black" is significantly different.</p>
-																  </div>
-																</div>
-																</article>
-															
-															
-															
-															</td>
-															<td style="width: 25%;">412.213</td>
-														 </tr>
-														
-														 <tr>
-															<td style="width: 25%;">All Races</td>
-															<td style="width: 25%;">White</td>
-															<td style="width: 25%;">
-															
-															<article id="insight">
-																<div class="insight">
-																  <a href="#"><u class="text-danger m-0 h4">False</u></a>
-																  <div class="text-danger"
-																	<p>Distribution of the continuous variable - "Age-adjusted_Death_Rate" for the categories "All Races" and "White" is NOT significantly different.</p>
-																  </div>
-																</div>
-																</article>
-															
-															
-															
-															</td>
-															<td style="width: 25%;">-31.317</td>
-														 </tr>
-														
-														 <tr>
-															<td style="width: 25%;">Black</td>
-															<td style="width: 25%;">White</td>
-															<td style="width: 25%;">
-															
-															<article id="insight">
-																<div class="insight">
-																  <a href="#"><u class="text-success m-0 h4">True</u></a>
-																  <div class="text-success"
-																	<p>Distribution of the continuous variable - "Age-adjusted_Death_Rate" for the categories "Black" and "White" is significantly different.</p>
-																  </div>
-																</div>
-																</article>
-															
-															
-															
-															</td>
-															<td style="width: 25%;">-443.53</td>
-														 </tr>
-														
-													 </tbody>
-												  </table>
-												</div>
-											</div>
-										
-											
-										</div>
-									</div>
-								</div>
-								
-								<div id=Race2Average_Life_Expectancy__Years_Anova style="display: none;">
-									<div class="row row-cards">
-										<div class = "card col-xl-4">
-											<div class="card-header">
-												<h4> <c> One Way Anova </c> </h4>
-											</div>
-											<div class = "card-body text-center">
-											<div class="text-muted mb-4">F-Score</div> <div class="h1 m-0">46.118</div>
-											<br>
-											<div class="text-muted mb-4">p-Value</div> <div class="h1 m-0">
-												<article id="insight">
-												<ul>
-												<div class="insight">
-												  <a class="h4 m-0" href="#"><u>1.6088473753046198e-19</u></a>
-												  <div class="text-success"
-													<p>With Confidence interval of 0.05, the variable - "Average_Life_Expectancy__Years_" is influenced by the categorical variable - "Race2". </p>
-												  </div>
-												</div>
-												</article>
-												
-											</div>
-											</div>
-										</div>
-										<div class = "card col-xl-8">
-										
-											<div class="card-header">
-												<h4> <c> Tukey HSD - Post Hoc Test (Null Hypothesis - No difference in the distributions) </c> </h4>
-											</div>
-											<div class = "card-body text-center">
-											
-												<div class="table-responsive">
-												  <table class="table card-table table-striped table-vcenter">
-													 <thead>
-														<tr>
-														   <th>Group 1</th>
-														   <th>Group 2</th>
-														   <th>Reject</th>
-														   <th>Mean Difference</th>
-														</tr>
-													 </thead>
-													 <tbody>
-														
-														 <tr>
-															<td style="width: 25%;">All Races</td>
-															<td style="width: 25%;">Black</td>
-															<td style="width: 25%;">
-															
-															<article id="insight">
-																<div class="insight">
-																  <a href="#"><u class="text-success m-0 h4">True</u></a>
-																  <div class="text-success"
-																	<p>Distribution of the continuous variable - "Average_Life_Expectancy__Years_" for the categories "All Races" and "Black" is significantly different.</p>
-																  </div>
-																</div>
-																</article>
-															
-															
-															
-															</td>
-															<td style="width: 25%;">-8.232</td>
-														 </tr>
-														
-														 <tr>
-															<td style="width: 25%;">All Races</td>
-															<td style="width: 25%;">White</td>
-															<td style="width: 25%;">
-															
-															<article id="insight">
-																<div class="insight">
-																  <a href="#"><u class="text-danger m-0 h4">False</u></a>
-																  <div class="text-danger"
-																	<p>Distribution of the continuous variable - "Average_Life_Expectancy__Years_" for the categories "All Races" and "White" is NOT significantly different.</p>
-																  </div>
-																</div>
-																</article>
-															
-															
-															
-															</td>
-															<td style="width: 25%;">0.817</td>
-														 </tr>
-														
-														 <tr>
-															<td style="width: 25%;">Black</td>
-															<td style="width: 25%;">White</td>
-															<td style="width: 25%;">
-															
-															<article id="insight">
-																<div class="insight">
-																  <a href="#"><u class="text-success m-0 h4">True</u></a>
-																  <div class="text-success"
-																	<p>Distribution of the continuous variable - "Average_Life_Expectancy__Years_" for the categories "Black" and "White" is significantly different.</p>
-																  </div>
-																</div>
-																</article>
-															
-															
-															
-															</td>
-															<td style="width: 25%;">9.048</td>
-														 </tr>
-														
-													 </tbody>
-												  </table>
-												</div>
-											</div>
-										
-											
-										</div>
-									</div>
-								</div>
-								
-								<div id=RaceAge-adjusted_Death_RateAnova style="display: none;">
-									<div class="row row-cards">
-										<div class = "card col-xl-4">
-											<div class="card-header">
-												<h4> <c> One Way Anova </c> </h4>
-											</div>
-											<div class = "card-body text-center">
-											<div class="text-muted mb-4">F-Score</div> <div class="h1 m-0">32.957</div>
-											<br>
-											<div class="text-muted mb-4">p-Value</div> <div class="h1 m-0">
-												<article id="insight">
-												<ul>
-												<div class="insight">
-												  <a class="h4 m-0" href="#"><u>2.1509352213430778e-14</u></a>
-												  <div class="text-success"
-													<p>With Confidence interval of 0.05, the variable - "Age-adjusted_Death_Rate" is influenced by the categorical variable - "Race". </p>
-												  </div>
-												</div>
-												</article>
-												
-											</div>
-											</div>
-										</div>
-										<div class = "card col-xl-8">
-										
-											<div class="card-header">
-												<h4> <c> Tukey HSD - Post Hoc Test (Null Hypothesis - No difference in the distributions) </c> </h4>
-											</div>
-											<div class = "card-body text-center">
-											
-												<div class="table-responsive">
-												  <table class="table card-table table-striped table-vcenter">
-													 <thead>
-														<tr>
-														   <th>Group 1</th>
-														   <th>Group 2</th>
-														   <th>Reject</th>
-														   <th>Mean Difference</th>
-														</tr>
-													 </thead>
-													 <tbody>
-														
-														 <tr>
-															<td style="width: 25%;">All Races</td>
-															<td style="width: 25%;">Black</td>
-															<td style="width: 25%;">
-															
-															<article id="insight">
-																<div class="insight">
-																  <a href="#"><u class="text-success m-0 h4">True</u></a>
-																  <div class="text-success"
-																	<p>Distribution of the continuous variable - "Age-adjusted_Death_Rate" for the categories "All Races" and "Black" is significantly different.</p>
-																  </div>
-																</div>
-																</article>
-															
-															
-															
-															</td>
-															<td style="width: 25%;">412.213</td>
-														 </tr>
-														
-														 <tr>
-															<td style="width: 25%;">All Races</td>
-															<td style="width: 25%;">White</td>
-															<td style="width: 25%;">
-															
-															<article id="insight">
-																<div class="insight">
-																  <a href="#"><u class="text-danger m-0 h4">False</u></a>
-																  <div class="text-danger"
-																	<p>Distribution of the continuous variable - "Age-adjusted_Death_Rate" for the categories "All Races" and "White" is NOT significantly different.</p>
-																  </div>
-																</div>
-																</article>
-															
-															
-															
-															</td>
-															<td style="width: 25%;">-31.317</td>
-														 </tr>
-														
-														 <tr>
-															<td style="width: 25%;">Black</td>
-															<td style="width: 25%;">White</td>
-															<td style="width: 25%;">
-															
-															<article id="insight">
-																<div class="insight">
-																  <a href="#"><u class="text-success m-0 h4">True</u></a>
-																  <div class="text-success"
-																	<p>Distribution of the continuous variable - "Age-adjusted_Death_Rate" for the categories "Black" and "White" is significantly different.</p>
-																  </div>
-																</div>
-																</article>
-															
-															
-															
-															</td>
-															<td style="width: 25%;">-443.53</td>
-														 </tr>
-														
-													 </tbody>
-												  </table>
-												</div>
-											</div>
-										
-											
-										</div>
-									</div>
-								</div>
-								
-								<div id=RaceAverage_Life_Expectancy__Years_Anova style="display: none;">
-									<div class="row row-cards">
-										<div class = "card col-xl-4">
-											<div class="card-header">
-												<h4> <c> One Way Anova </c> </h4>
-											</div>
-											<div class = "card-body text-center">
-											<div class="text-muted mb-4">F-Score</div> <div class="h1 m-0">46.118</div>
-											<br>
-											<div class="text-muted mb-4">p-Value</div> <div class="h1 m-0">
-												<article id="insight">
-												<ul>
-												<div class="insight">
-												  <a class="h4 m-0" href="#"><u>1.6088473753046198e-19</u></a>
-												  <div class="text-success"
-													<p>With Confidence interval of 0.05, the variable - "Average_Life_Expectancy__Years_" is influenced by the categorical variable - "Race". </p>
-												  </div>
-												</div>
-												</article>
-												
-											</div>
-											</div>
-										</div>
-										<div class = "card col-xl-8">
-										
-											<div class="card-header">
-												<h4> <c> Tukey HSD - Post Hoc Test (Null Hypothesis - No difference in the distributions) </c> </h4>
-											</div>
-											<div class = "card-body text-center">
-											
-												<div class="table-responsive">
-												  <table class="table card-table table-striped table-vcenter">
-													 <thead>
-														<tr>
-														   <th>Group 1</th>
-														   <th>Group 2</th>
-														   <th>Reject</th>
-														   <th>Mean Difference</th>
-														</tr>
-													 </thead>
-													 <tbody>
-														
-														 <tr>
-															<td style="width: 25%;">All Races</td>
-															<td style="width: 25%;">Black</td>
-															<td style="width: 25%;">
-															
-															<article id="insight">
-																<div class="insight">
-																  <a href="#"><u class="text-success m-0 h4">True</u></a>
-																  <div class="text-success"
-																	<p>Distribution of the continuous variable - "Average_Life_Expectancy__Years_" for the categories "All Races" and "Black" is significantly different.</p>
-																  </div>
-																</div>
-																</article>
-															
-															
-															
-															</td>
-															<td style="width: 25%;">-8.232</td>
-														 </tr>
-														
-														 <tr>
-															<td style="width: 25%;">All Races</td>
-															<td style="width: 25%;">White</td>
-															<td style="width: 25%;">
-															
-															<article id="insight">
-																<div class="insight">
-																  <a href="#"><u class="text-danger m-0 h4">False</u></a>
-																  <div class="text-danger"
-																	<p>Distribution of the continuous variable - "Average_Life_Expectancy__Years_" for the categories "All Races" and "White" is NOT significantly different.</p>
-																  </div>
-																</div>
-																</article>
-															
-															
-															
-															</td>
-															<td style="width: 25%;">0.817</td>
-														 </tr>
-														
-														 <tr>
-															<td style="width: 25%;">Black</td>
-															<td style="width: 25%;">White</td>
-															<td style="width: 25%;">
-															
-															<article id="insight">
-																<div class="insight">
-																  <a href="#"><u class="text-success m-0 h4">True</u></a>
-																  <div class="text-success"
-																	<p>Distribution of the continuous variable - "Average_Life_Expectancy__Years_" for the categories "Black" and "White" is significantly different.</p>
-																  </div>
-																</div>
-																</article>
-															
-															
-															
-															</td>
-															<td style="width: 25%;">9.048</td>
-														 </tr>
-														
-													 </tbody>
-												  </table>
-												</div>
-											</div>
+											<div class="text-center"><br><br><br><h4>Post Hoc Test Not required</h4></div>
 										
 											
 										</div>
@@ -2348,53 +2274,71 @@
 															 
 															 <tr>
 																<td style="width: 146.4px;">Unnamed:_0</td>
-																<td style="width: 147.2px;">0.0</td>
+																<td style="width: 147.2px;">0.0%</td>
 															 </tr>
 															 
 															 <tr>
 																<td style="width: 146.4px;">Year</td>
-																<td style="width: 147.2px;">0.0</td>
+																<td style="width: 147.2px;">0.0%</td>
 															 </tr>
 															 
 															 <tr>
 																<td style="width: 146.4px;">Race</td>
-																<td style="width: 147.2px;">0.0</td>
+																<td style="width: 147.2px;">0.0%</td>
 															 </tr>
 															 
 															 <tr>
 																<td style="width: 146.4px;">Sex</td>
-																<td style="width: 147.2px;">0.0</td>
+																<td style="width: 147.2px;">2.0%</td>
 															 </tr>
 															 
 															 <tr>
 																<td style="width: 146.4px;">Average_Life_Expectancy__Years_</td>
-																<td style="width: 147.2px;">0.0</td>
+																<td style="width: 147.2px;">3.0%</td>
 															 </tr>
 															 
 															 <tr>
 																<td style="width: 146.4px;">Age-adjusted_Death_Rate</td>
-																<td style="width: 147.2px;">0.0</td>
+																<td style="width: 147.2px;">22.0%</td>
 															 </tr>
 															 
 															 <tr>
 																<td style="width: 146.4px;">LifeExpectency</td>
-																<td style="width: 147.2px;">0.0</td>
+																<td style="width: 147.2px;">0.0%</td>
 															 </tr>
 															 
 															 <tr>
 																<td style="width: 146.4px;">Race2</td>
-																<td style="width: 147.2px;">0.0</td>
+																<td style="width: 147.2px;">2.0%</td>
 															 </tr>
 															 
 														  </tbody>
 													   </table>
+													   
 												  </div>
 											   </div>
 											</div>
 										 </div>
+									<div class="col-md-6">
+										<div class="row">
+										   <div class="col-sm-10">
+											  <div class="card">
+												 <div class="card-header">
+													<h3 class="card-title">Null Percentage</h3>
+												 </div>
+												 <div class="card-body">
+													<div class="embed-wrapper">
+													   <div id="NullPercentage" style="height: 18rem;"></div>
+													</div>
+												 </div>
+											  </div>
+										   </div>
+										</div>
+									 </div>
 								</div>								
 						   </div>
 						</div>
+						
 					 </div>
 					 
 					 

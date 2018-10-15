@@ -1,2 +1,2 @@
-include data/*
-recursive-include HTMLTemplate/dist *
+include ./AutoPreProcessing/data/*
+recursive-include ./AutoPreProcessing/HTMLTemplate/dist *

@@ -8,7 +8,7 @@ from jinja2 import Environment, FileSystemLoader
 import random
 from scipy.stats import chi2_contingency
 import seaborn as sns
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt 
 import scipy.stats as stats
 from statsmodels.stats.multicomp import pairwise_tukeyhsd
 from statsmodels.stats.multicomp import MultiComparison
@@ -22,7 +22,7 @@ import os
 
 
 class EDA: 
-	def __init__(self,df,CategoricalFeatures=[],filename="index.html",VIF_threshold=5,debug='YES'):
+	def __init__(self,df,CategoricalFeatures=[],filename="index.html",VIF_threshold=5,debug='NO',title='Exploratory Data Analysis'):
 		''' Constructor for this class. '''
 		self.df = df
 		self.df.columns = [col.replace(" ", "_") for col in df.columns]
@@ -60,9 +60,10 @@ class EDA:
 		self.filename = filename
 		self.VIF_threshold = VIF_threshold
 		self.debug = debug
+		self.title = title 
 	
 
-	def EDAToHTML(self,title='EDA',out=None):
+	def EDAToHTML(self,out=None):
 		filename = 'HTMLTemplate\\dist\\HTMLTemplate_V2.html'
 		this_dir, this_filename = os.path.split(__file__)
 		
@@ -89,8 +90,8 @@ class EDA:
 		else:
 			# out_filename = './HTMLTemplate/dist/result.html'
 			out_filename = os.path.join(this_dir, 'HTMLTemplate\\dist\\result.html')
-		
-		html = template.render(title = title
+		#self.ScatterPlot()
+		html = template.render(title = self.title
 					   ,ListOfFields = self.ListOfFields()
 					   ,CategoricalFeatures = self.CategoricalFeatures
 					   ,OtherFeatures = self.OtherFeatures
@@ -108,7 +109,8 @@ class EDA:
 					   ,VIF_columns = self.VIF()
 					   #,VIF_threshold = self.VIF_threshold
 					   ,Variance = self.std_variance()
-					   ,NullValue = pd.DataFrame(round(self.df.isnull().sum()/self.df.shape[0],3)).reset_index().rename(columns={'index': 'Feature',0:'NullPercentage'})
+					   ,NullValue = pd.DataFrame(round((self.df.isnull().sum()/self.df.shape[0])*100)).reset_index().rename(columns={'index': 'Feature',0:'NullPercentage'})
+					   ,ScatterImage = self.ScatterPlot()
 					   )		   
 		with io.open(out_filename, mode='w', encoding='utf-8') as f:
 			f.write(html)
@@ -197,7 +199,7 @@ class EDA:
 				if DependentVar != IndependentVar:
 					# Update Weight Of Evidence(WOE) and Information Value (IV)
 					if DependentVar in self.BinaryCategoricalFeatures:
-						WOE,IV = woe.woe_single_x(self.df[IndependentVar],self.df[DependentVar],event=self.df[DependentVar].unique()[0])
+						WOE,IV = woe.woe_single_x(self.df[IndependentVar].dropna(),self.df[DependentVar].dropna(),event=self.df[DependentVar].dropna().unique()[0])
 						if IV >= 0.3:
 							IVInsight = InsightStat.format(IndependentVar,"strong predictor",DependentVar)
 						elif IV >= 0.1:
@@ -241,6 +243,7 @@ class EDA:
 		end = time.time()
 		if self.debug == 'YES':
 			print('WOEList',end-start)
+			#print(WOEList)
 		return WOEList
 	
 	def UpdateChiSq(self,WOEList,DependentVar, IndependentVar, ChiSq, PValue, ChiSqInsight):
@@ -286,7 +289,7 @@ class EDA:
 								,SeventyFive = value['75%']
 								,Max = value['max']
 								,Median = self.df[key].median()
-								,ImageFileName = self.BoxPlot(key)
+								,ImageFileName = self.BoxPlot(key)								
 								,Hist = Hist
 								,HistValues = HistValues
 								,Edges = Edges
@@ -299,7 +302,23 @@ class EDA:
 		if self.debug == 'YES':
 			print('ContinuousSummary',end-start)
 		return VariableDetails
-	
+		
+	def ScatterPlot(self):
+		start = time.time()
+		sns.set(style="ticks", color_codes=True)
+		this_dir, this_filename = os.path.split(__file__)
+		OutFileName = os.path.join(this_dir, 'HTMLTemplate/dist/output/Scatter.png')
+		#print('executing scatterplot...')
+		#print(OutFileName)
+		fig, ax = plt.subplots()
+		ax = sns.pairplot(self.df.dropna(),markers="+",palette="husl",kind="reg", plot_kws={'line_kws':{'color':'orange'}})
+		plt.savefig(OutFileName)
+		#print(OutFileName)
+		end = time.time()
+		if self.debug == 'YES':
+			print('ScatterPlot',end-start)
+		return OutFileName
+		
 	def BoxPlot(self,var):
 
 		start = time.time()
@@ -311,6 +330,7 @@ class EDA:
 		box.set_facecolor(colors[0])
 		box.set_edgecolor(colors[1])
 		sns.despine(offset=10, trim=True)
+		
 		
 		this_dir, this_filename = os.path.split(__file__)
 		OutFileName = os.path.join(this_dir, 'HTMLTemplate/dist/output/'+var + '.png')
@@ -363,6 +383,8 @@ class EDA:
 		"""		
 		Calculate the F-Score (One Way Anova) for each of Categorical Variables with all the Continuous Variables
 		"""
+		# Drop records with Null values
+		temp_df = self.df.dropna()
 		start = time.time()
 		AnovaList = []
 		Insight1 = "With Confidence interval of 0.05, the variable - \"{0}\" is influenced by the categorical variable - \"{1}\". "
@@ -373,7 +395,8 @@ class EDA:
 			for ContinuousVar in self.ContinuousFeatures:
 				TukeyResult = None 
 				#f,p = stats.f_oneway(*[list(self.df[self.df[CategoricalVar]==name][ContinuousVar]) for name in set(self.df[CategoricalVar])])
-				f,p = stats.f_oneway(*[list(self.df[self.df[CategoricalVar]==name][ContinuousVar]) for name in set(self.df[CategoricalVar])])
+				#f,p = stats.f_oneway(*[list(self.df[self.df[CategoricalVar]==name][ContinuousVar].dropna() for name in set(self.df[CategoricalVar]))])
+				f,p = stats.f_oneway(*[list(temp_df[temp_df[CategoricalVar]==name][ContinuousVar]) for name in set(temp_df[CategoricalVar])])
 				if (p<0.05 and CategoricalVar in self.BinaryCategoricalFeatures):
 					Insight = Insight1.format(ContinuousVar, CategoricalVar) + Insight2.format(CategoricalVar)
 				elif p<0.05:
@@ -393,8 +416,9 @@ class EDA:
 		Calculate Tukey Honest Significance Difference (HSD) Test, to identify the groups whose
 		distributions are significantly different
 		"""
+		temp_df = self.df.dropna()
 		start = time.time()
-		mc = MultiComparison(self.df[Continuous], self.df[Categorical])
+		mc = MultiComparison(temp_df[Continuous], temp_df[Categorical])
 		result = mc.tukeyhsd()
 		reject = result.reject
 		meandiffs = result.meandiffs

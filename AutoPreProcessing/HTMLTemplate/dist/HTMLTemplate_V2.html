@@ -96,6 +96,75 @@
          });
       </script>
 	  
+	  <script>
+         require(['c3', 'jquery'], function(c3, $) {
+         	$(document).ready(function(){
+         		var chart = c3.generate({
+         			bindto: '#FeatureTypes_2', // id of chart wrapper
+         			data: {
+         				columns: [
+         				    // each columns data
+         {% for FeatureType in FeatureTypes %}
+         ['{{ FeatureType['Name'] }}' , {{ FeatureType['Value'] }}],
+         {% endfor %}
+         				],
+         				type: 'pie', // default type of chart
+         				colors: {
+         {% for FeatureType in FeatureTypes %}
+         '{{ FeatureType['Name'] }}': '{{ FeatureType['Color'] }}',
+         {% endfor %}
+         					
+         				},
+         				names: {
+         				    // name of each series
+         {% for FeatureType in FeatureTypes %}
+         '{{ FeatureType['Name'] }}': '{{ FeatureType['Name'] }}',
+         {% endfor %}
+         				}
+         			},
+         			axis: {
+         			},
+         			legend: {
+                         show: true, //hide legend
+         			},
+         			padding: {
+         				bottom: 0,
+         				top: 0
+         			},
+         		});
+         	});
+         });
+      </script>
+	  
+	  <!-- Bar Chart for Null Percentage -->
+	  <script>
+         require(['c3', 'jquery'], function(c3, $) {
+         	$(document).ready(function(){
+         		var chart = c3.generate({
+         			bindto: '#NullPercentage', // id of chart wrapper
+         			data: {
+						x : 'x',
+						columns: [
+							['x',{% for key, row in NullValue.iterrows() %}'{{row["Feature"]}}'{% if not loop.last %},{% endif %}{% endfor %}],
+							['Null Percentage',{% for key, row in NullValue.iterrows() %}{{row["NullPercentage"]}}{% if not loop.last %},{% endif %}{% endfor %}],							
+						],
+						type: 'bar'
+					},
+					axis: {
+						x: {
+							type: 'category',
+							tick: {
+								rotate: 75,
+								multiline: false
+							},
+							height: 130
+						}
+					}
+         		});
+         	});
+         });
+      </script>
+	  
       {% for var in CategoriesCount %}
       <script>
          require(['c3', 'jquery'], function(c3, $) {
@@ -199,7 +268,7 @@
                <div class="container">
                   <div class="d-flex">
                      <img src="./assets/image/binoculars.png" class="header-brand-img" alt="">
-                     <h1> Exploratory Data Analysis </h1>
+                     <h1> Smart Stats </h1>
                      <div class="d-flex order-lg-2 ml-auto">
                         <div class="nav-item d-none d-md-flex">
                         </div>
@@ -229,7 +298,7 @@
                <div class="container">
                   <div class="page-header">
                      <h1 class="page-title">
-                        EDA Title
+                        {{ title }}
                      </h1>
                   </div>
                   <div class="row row-cards">
@@ -392,6 +461,7 @@
 							</div>
 						   {% endfor %}
 						   </div>
+						   
 						    <div class="card">
 							   <div class="card-header">
 								  <h3 class="card-title">CoRelation Heatmap</h3>
@@ -401,9 +471,9 @@
 										<div id="CorrChart"><!-- Plotly chart will be drawn inside this DIV --></div>
 										<script>
 											  var colorscaleValue = [
-												  [0, '#5D535E'],
-												  [0.5, '#FFFFFF'],
-												  [1, '#F69454']
+												  [0, '#F5251F'],
+												  [0.5, '#FEF2E4'],
+												  [1, '#21125B']
 												];
 												var data = [
 											  {
@@ -425,6 +495,19 @@
 									</div>
 							   </div>
 							</div>
+							
+							<!-- Scatter Plot - Matrix -->
+							<div class="card">
+							   <div class="card-header">
+								  <h3 class="card-title">Scatter Plot</h3>
+							   </div>
+							   <div class="card-body text-center">
+									<div class = "row text-center">
+										<C><img src="./output/Scatter.png"  alt="" height="90%" width="90%"> </img></C>
+									</div>
+								</div>
+							</div>
+							
 							
 							
 							<div class="card">
@@ -866,18 +949,36 @@
 															 {% for key, row in NullValue.iterrows() %}
 															 <tr>
 																<td style="width: 146.4px;">{{row["Feature"]}}</td>
-																<td style="width: 147.2px;">{{row["NullPercentage"]}}</td>
+																<td style="width: 147.2px;">{{row["NullPercentage"]}}%</td>
 															 </tr>
 															 {% endfor %}
 														  </tbody>
 													   </table>
+													   
 												  </div>
 											   </div>
 											</div>
 										 </div>
+									<div class="col-md-6">
+										<div class="row">
+										   <div class="col-sm-10">
+											  <div class="card">
+												 <div class="card-header">
+													<h3 class="card-title">Null Percentage</h3>
+												 </div>
+												 <div class="card-body">
+													<div class="embed-wrapper">
+													   <div id="NullPercentage" style="height: 18rem;"></div>
+													</div>
+												 </div>
+											  </div>
+										   </div>
+										</div>
+									 </div>
 								</div>								
 						   </div>
 						</div>
+						
 					 </div>
 					 
 					 
